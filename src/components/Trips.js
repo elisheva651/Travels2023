@@ -50,6 +50,7 @@ export default function Trips({selectedCountries=[]}) {
           <Typography gutterBottom variant="h5" component="div">
             <a href={countryData.URL}>Visit in Wikipedia {countryData.tripTitle} page</a>
             pechem ben papa rami bar papa
+            nenel ben papa 
           </Typography>
           <Typography  variant="body2" color="text.secondary">
             {country.content}
