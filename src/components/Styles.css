@@ -1,0 +1,21 @@
+
+.s1 {
+    background-color: #282c34;
+    color: white;
+    padding: 40px;
+    font-family: Arial;
+    text-align: center;
+    align-self: center;
+  }
+.link{
+    color: blue;
+    text-align: center;
+    cursor: pointer;  /* . משנה את העכבר ליד כשעומדים על הלינק. on hover */
+}
+
+.cards{
+    font-size: 100%;
+    background-color: #c5d2eb;
+
+    outline-style: inset;
+}
