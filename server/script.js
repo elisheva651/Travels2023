@@ -1,13 +1,21 @@
 const mongoose=require('mongoose')
-const User=require("./TripSchema")
 const cors = require('cors')
+const trip=require("./TripSchema")
+const bodyParser = require('body-parser');
+
 
 const express = require('express')
+
+const TripSchema = require('./TripSchema')
 const app = express()
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
 const port = 3000
 
 const uri = 'mongodb+srv://trips_db:tripsdb@travels.4gvojse.mongodb.net/?retryWrites=true&w=majority&tls=true';
 mongoose.connect(uri).then((x)=>{console.log("connected")}).catch(error=>{console.log("catch", error)})
+
+
 
 
 
@@ -75,6 +83,59 @@ app.get('/account/{accountId}/project/{projectId}/trees', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+
+
+
+ app.post('/api/addTrip', async (req, res) => {
+  try{
+    // console.log(req.body, " req.body")
+
+    // if(!req.body.startCountry || !req.body.numberOfDays)
+    // {
+    //   res.status(400).json({'message':"bad parameters"});
+    //   return;
+    // } 
+    const newTripDoc = new TripSchema(req.body)
+    console.log("before save")
+    const trip1 = await newTripDoc.save();
+    console.log("after save")
+
+    if(trip1 !== newTripDoc)
+    {
+      
+      console.log("in if")
+      res.status(500).json({"message":"not save correctly"}) 
+      return
+    }
+    console.log("send")
+    res.status(200).send()
+  }
+  catch(err){
+    console.log(err, "here in catch")
+    res.status(500).json({"message":"not save correctly"}) 
+
+    return;
+  }
+  
+});
+
+// app.newTrip('/country/:countryId',(req, res) => {
+
+//   const {startCountry} = req.body;
+//   if (!startCountry) return res.status(400).JSON({'message':"bad request."})
+
+//   try{
+//     const newTrip=TripSchema.create({
+//     "startCountry": startCountry
+//   });
+//   res.status(201).JSON({'succes': 'new trip ${newTrip} added'})
+//   }
+//   catch(err){
+//     res.status(500).JSON({'message': err.message})
+//   }
+// });
+
 
 
 // const db = mongoose.connection;

@@ -2,11 +2,21 @@ const mongoose=require("mongoose")
 const Schema = mongoose.Schema;
 
 
-const userSchema= new mongoose.Schema({
-    id: {
+const TripSchema= new mongoose.Schema({
+    "title":{
+        type:String, 
+        required:true
+    },
+    
+    "start country": {
         type:String,
         required:true
+    }, 
+    "number of days":{
+        type:String, 
+        required:true
     }
+
     // title: "Israel",
     // tripTitle: "Mitzpe Ramon",
     // content: "In Israel we recomend you to travel in Mitzpe Ramon.",
@@ -16,4 +26,4 @@ const userSchema= new mongoose.Schema({
 
 
 
-module.exports=mongoose.model("Trip", userSchema) 
+module.exports=mongoose.model("Trip", TripSchema) 
