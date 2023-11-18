@@ -1,16 +1,15 @@
 const mongoose=require('mongoose')
 const cors = require('cors')
-const trip=require("./TripSchema")
+const Trip=require("./TripSchema")
 const bodyParser = require('body-parser');
 
 
 const express = require('express')
 
-const TripSchema = require('./TripSchema')
 const app = express()
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
-const port = 3000
+const port = 5000
 
 const uri = 'mongodb+srv://trips_db:tripsdb@travels.4gvojse.mongodb.net/?retryWrites=true&w=majority&tls=true';
 mongoose.connect(uri).then((x)=>{console.log("connected")}).catch(error=>{console.log("catch", error)})
@@ -76,9 +75,32 @@ app.get('/country/:countryId', (req, res) => {
 
 })
 
-app.get('/account/{accountId}/project/{projectId}/trees', (req, res) => {
-    res.send('Hello World!')
-  })
+
+
+app.get('/allPosts',async (req, res) => {
+  try{
+    const result = await Trip.find()
+    res.status(200).send(JSON.stringify(result))
+    return 
+  }catch(error){
+    console.log(error, " error in allPost fetch")
+
+  }
+})
+
+app.get('/search',async (req, res) => {
+  console.log(req.query["data"], "req.query[data]")
+  try{
+    console.log("searching fetch")
+    const result = await Trip.find(JSON.parse(req.query["data"]), {_id:0, __v:0})
+    console.log(result)
+    res.status(200).send(JSON.stringify(result))
+    return 
+  }catch(error){
+    console.log("error in search", error)
+    res.status(500)
+  }
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
@@ -86,35 +108,33 @@ app.listen(port, () => {
 
 
 
+app.delete('/api/deleteTrip', async (req, res) => {
+  try{
+    console.log("here1" )
+
+    console.log("here1", req.body._id)
+    const result = await Trip.deleteOne({_id:req.body._id})
+  }catch(error){
+    console.log("error to fetch deleteTrip", error)
+  }
+
+})
+
 
  app.post('/api/addTrip', async (req, res) => {
   try{
-    // console.log(req.body, " req.body")
-
-    // if(!req.body.startCountry || !req.body.numberOfDays)
-    // {
-    //   res.status(400).json({'message':"bad parameters"});
-    //   return;
-    // } 
-    const newTripDoc = new TripSchema(req.body)
-    console.log("before save")
+    console.log(req.body, "req.body")
+    const newTripDoc = new Trip(req.body)
     const trip1 = await newTripDoc.save();
-    console.log("after save")
-
     if(trip1 !== newTripDoc)
-    {
-      
-      console.log("in if")
+    {      
       res.status(500).json({"message":"not save correctly"}) 
       return
     }
-    console.log("send")
     res.status(200).send()
   }
   catch(err){
-    console.log(err, "here in catch")
     res.status(500).json({"message":"not save correctly"}) 
-
     return;
   }
   
