@@ -7,6 +7,10 @@ const TripSchema = new mongoose.Schema({
         type:String,  
         required:true
     },
+
+    "region/district":{
+        type:String
+    },
     
     "start country": {
         type:String,
@@ -15,13 +19,11 @@ const TripSchema = new mongoose.Schema({
     "number of days":{
         type:String, 
         required:true
+    }, 
+    "imgs":{
+        type:Array(String)
     }
 
-    // title: "Israel",
-    // tripTitle: "Mitzpe Ramon",
-    // content: "In Israel we recomend you to travel in Mitzpe Ramon.",
-    // URL: "https://en.wikipedia.org/wiki/Mitzpe_Ramon",
-    // image:
 });
 
 

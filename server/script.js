@@ -10,6 +10,9 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 const port = 5000
+const multer = require('multer');
+const TripSchema = require('./TripSchema');
+const upload =multer({});
 
 const uri = 'mongodb+srv://trips_db:tripsdb@travels.4gvojse.mongodb.net/?retryWrites=true&w=majority&tls=true';
 mongoose.connect(uri).then((x)=>{console.log("connected")}).catch(error=>{console.log("catch", error)})
@@ -18,62 +21,36 @@ mongoose.connect(uri).then((x)=>{console.log("connected")}).catch(error=>{consol
 
 
 
-
 app.use(cors({
     origin: '*'
 }));
-const countries = [
-    {
-      id: 'Israel',
-      title: "Israel",
-      tripTitle: "Mitzpe Ramon",
-      content: "In Israel we recomend you to travel in Mitzpe Ramon.",
-      URL: "https://en.wikipedia.org/wiki/Mitzpe_Ramon",
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/MakhteshRamonMar262022_01.jpg/550px-MakhteshRamonMar262022_01.jpg"
-    },
-    {
-      id: 'USA',
-      title: "USA",
-      content: "In USA we recomend you to travel in the Grand Canyon",
-      tripTitle: "Grand Canyon",
-      URL: "https://en.wikipedia.org/wiki/Grand Canyon",
-      image: "https://t1.gstatic.com/licensed-image?q=tbn:ANd9GcSY7x0shpPE3J7JCulJ5cXC2vYmOCl_LNqhiUPuDeWOA3MaUUut7AM3Wt8VJzFs5gxA"
-    },
-    {
-      id: 'Peru',
-      title: "Peru",
-      content: "In Peru we recomend you to travel in Machu Picchu",
-      tripTitle: "Machu Picchu",
-      URL: "https://en.wikipedia.org/wiki/Machu Picchu",
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Machu_Picchu%2C_Peru.jpg/540px-Machu_Picchu%2C_Peru.jpg"
-    },
-    ]
 
-app.get('/countries', (req, res) => {
-    const ids = countries.map((country) => (
-        country.id
-      ))
 
-    res.send(ids)
-        // console.log(res.status)
-})
+// app.get('/countries', (req, res) => {
+//     const ids = countries.map((country) => (
+//         country.id
+//       ))
 
-app.get('/country/:countryId', (req, res) => {
-    const countryId = req.params.countryId;
-    const country = countries.find(_country => _country.id === countryId);
-    console.log("erver")
+//     res.send(ids)
+//         // console.log(res.status)
+// })
 
-    if(!country){
+// app.get('/country/:countryId', (req, res) => {
+//     const countryId = req.params.countryId;
+//     const country = countries.find(_country => _country.id === countryId);
+//     console.log("erver")
 
-        console.log("erver")
+//     if(!country){
 
-        res.status(400).send(JSON.stringify({message: 'id is not supported'}))
-        return;
-    }
-    console.log(country, " country in server")
-    res.send(JSON.stringify(country))
+//         console.log("erver")
 
-})
+//         res.status(400).send(JSON.stringify({message: 'id is not supported'}))
+//         return;
+//     }
+//     console.log(country, " country in server")
+//     res.send(JSON.stringify(country))
+
+// })
 
 
 
@@ -110,10 +87,9 @@ app.listen(port, () => {
 
 app.delete('/api/deleteTrip', async (req, res) => {
   try{
-    console.log("here1" )
 
-    console.log("here1", req.body._id)
     const result = await Trip.deleteOne({_id:req.body._id})
+    console.log("delete complete")
   }catch(error){
     console.log("error to fetch deleteTrip", error)
   }
@@ -121,9 +97,24 @@ app.delete('/api/deleteTrip', async (req, res) => {
 })
 
 
- app.post('/api/addTrip', async (req, res) => {
+app.post('/api/editPost', async (req, res) => {
   try{
-    console.log(req.body, "req.body")
+    const result = await Trip.findOneAndUpdate({_id:req.body.postId}, req.body.dataTrip)
+    const res2 = await Trip.find({_id:req.body.postId})
+    console.log("result", result)
+    console.log("res2", res2)
+    return res2
+  }catch(error){
+    console.log("error to fetch editTrip", error)
+  }
+
+})
+
+
+ app.post('/api/addTrip', async (req, res) => {
+  try{ 
+    
+    console.log("server side, dataTrip [imgs].length that came in req.body", req.body["imgs"].length)
     const newTripDoc = new Trip(req.body)
     const trip1 = await newTripDoc.save();
     if(trip1 !== newTripDoc)
