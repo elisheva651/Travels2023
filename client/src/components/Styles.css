@@ -1,0 +1,198 @@
+@import url('https://fonts.cdnfonts.com/css/apple-chancery');
+
+#Constants{
+    --colorOne: rgb(254, 211, 222);
+}
+
+.s1 {
+    background-color: #282c34;
+    color: white;
+    padding: 40px;
+    font-family: Arial;
+    text-align: center;
+    align-self: center;
+  }
+.link{
+    color: #4e75c3;
+    text-align: center;
+    cursor: pointer;  /* . משנה את העכבר ליד כשעומדים על הלינק. on hover */
+}
+
+.cards{
+    max-width: 500px;
+    text-align: center;
+    width: 82%;
+    font-size: 100%;
+    background-color: #c5d2eb;
+    border-radius: 4px;;
+    margin: 5%;
+    outline-style: inset;
+}
+
+.custom-num{
+/* width: auto; */
+height: auto;
+border-style:solid; 
+display: flex;
+flex-direction: column;
+width: 100%;
+/* display: 'flex'; */
+/* flexWrap: 'wrap'; */
+border: 2;
+margin: 0;
+}
+
+
+.submitSX{
+    
+    color: #4e75c3;
+    border-style:solid; 
+    background-color: white;
+    cursor: pointer;
+    text-align: center;
+
+}
+
+
+.navbar{
+    font-weight: bold;
+    font-family: verdana;
+    flex-direction: row;
+    border-radius: 6px;
+    background-color:rgb(254, 211, 222);
+    /* margin-left: auto; */
+    /* text-decoration: none; */
+    padding: 6px;
+    display: flex;
+}
+.navbarLink{
+    color: #4e75c3;
+    margin: 10px;
+    cursor: pointer;
+    font-size:large;
+    display: flex;
+}
+
+.setWidth{
+    width: 100%;
+}
+
+.pageWraper{
+    width: 100%;
+    flex: auto;
+    display: flex;
+    
+}
+
+.postLablesCss{
+    color: #4e75c3;
+    width: 100%;
+    padding: 2%;
+    display: flex;
+    
+}
+
+.deleteAndEditButtons{
+    margin: 3px;
+    border-style:solid; 
+    cursor: pointer;
+    width: 100%;
+
+
+}
+
+
+.mainImage{
+    border-radius: 50%;
+    width: 10%;
+}
+
+.weatherImgs{
+    background-color: white;
+    width: 10%;
+    border-radius: 10px;
+}
+
+h1{
+    background-color:rgb(232, 253, 140);
+    text-align: "center";
+}
+ 
+.regionCss{
+    border-radius: 2px;
+    background-color:rgb(232, 253, 140);
+    font-size: 100%;
+    margin: 5%;
+    outline-style: inset;
+    text-align: center;
+}
+
+.h10{
+    color: black;
+}
+
+.appTitle{
+    margin-left:auto;
+    font-size:xx-large;
+    font-family: 'Apple Chancery', sans-serif;
+}
+
+.title{
+    margin-left:auto;
+    font-size:large;
+    font-weight: bold;
+
+    font-family: 'Apple Chancery', sans-serif;
+}
+
+.titleBig{
+    margin-left:auto;
+    font-size:xx-large;
+    font-weight: bold;
+    background-color: rgb(232, 253, 140);
+    font-family: 'Apple Chancery', sans-serif;
+}
+
+.nav{
+    text-align: left;
+    display: flex;
+    margin-top: auto;
+}
+
+.label{
+    
+    font-size: large;
+    font-weight: bold;
+    font-family:sans-serif;
+}
+
+.data{
+    font-size: medium;
+}
+
+.contentPost{
+    font-weight: bold;
+    font-family: verdana;
+    flex-direction: row;
+    /* margin-left: auto; */
+    /* text-decoration: none; */
+    padding: 6px;
+    display: flex;
+}
+
+.flex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+
+    
+}
+
+.weath{
+
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+
+}
